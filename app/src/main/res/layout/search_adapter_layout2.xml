@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/scratchedLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="200dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/scratch_card"
+        />
+
+    <LinearLayout
+        android:id="@+id/wonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingStart="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/rupee_icon"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/winAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/inter" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:text="Cashback"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:layout_marginTop="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            >
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="90dp"
+                android:src="@drawable/box" />
+
+            <ImageView
+                android:id="@+id/star"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/star" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
