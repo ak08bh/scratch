@@ -3,16 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:layout_height="250dp"
-    android:id="@+id/wonLayout"
-    >
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:id="@+id/wonLayout">
 
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/scratch_card"
-            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,6 +15,7 @@
             android:orientation="vertical"
             android:paddingTop="20dp"
             android:paddingStart="20dp"
+            android:background="@drawable/scratch_card_background_design"
            >
 
             <LinearLayout
@@ -75,5 +71,4 @@
             </RelativeLayout>
 
         </LinearLayout>
-
 </RelativeLayout>
