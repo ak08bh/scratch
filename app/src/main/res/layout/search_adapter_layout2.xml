@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:layout_width="200dp"
+    android:layout_height="200dp">
 
-    <RelativeLayout
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        >
+
     <ImageView
         android:id="@+id/cardViewImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/scratch_card"/>
+        android:src="@drawable/scratched_card"/>
 
     <LinearLayout
         android:id="@+id/wonLayout"
@@ -45,7 +41,7 @@
                 android:text="50rs"
                 android:textColor="@color/black"
                 android:textSize="22sp"
-                android:layout_marginStart="3dp"
+                android:layout_marginStart="5dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -54,7 +50,7 @@
                 android:text="Off"
                 android:textColor="@color/black"
                 android:textSize="22sp"
-                android:layout_marginStart="3dp"/>
+                android:layout_marginStart="5dp"/>
         </LinearLayout>
 
 
@@ -84,5 +80,4 @@
         </RelativeLayout>
 
     </LinearLayout>
-</RelativeLayout>
 </RelativeLayout>

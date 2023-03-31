@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.scratchcardactivity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="380dp"
+                android:background="@drawable/background_scratch">
+
+                <ImageView
+                    android:layout_width="280dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/food_pizza"
+                    android:layout_marginStart="-30dp"
+                    android:layout_marginTop="-40dp"
+                    />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/back_btn"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="60dp"
+                    android:layout_marginStart="40dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="30dp">
+
+
+                    <TextView
+                        android:id="@+id/font"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Cashback Won"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="36sp"
+                        android:layout_marginTop="110dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/rupee_icon"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="569"
+                            android:textColor="@color/black"
+                            android:textSize="60sp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="@font/inter_semibold"/>
+
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="180dp"
+                        android:layout_height="50dp"
+                        android:text="Redeem Now"
+                        android:textAllCaps="false"
+                        android:background="@drawable/redeem_btn_bg"
+                        android:textColor="@color/white"
+                        android:layout_gravity="center"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textAlignment="center"/>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:layout_width="460dp"
+                android:layout_height="350dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="-135dp"
+                android:layout_marginTop="130dp"
+                android:src="@drawable/food_img"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/black_bg_btn">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to earn more rewards"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inter_semibold"
+                android:paddingStart="35dp"
+                android:textSize="22sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_alignParentBottom="true"
+                />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/vector"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/black_bg_btn">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Invite your friends"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/inter_semibold"
+                    android:textAlignment="textStart"
+                    android:paddingStart="35dp"
+                    android:textSize="22sp"
+                    android:layout_alignParentBottom="true"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="to earn more scratch card"
+                    android:textColor="#818181"
+                    android:fontFamily="@font/inter_semibold"
+                    android:textAlignment="textStart"
+                    android:paddingStart="35dp"
+                    android:paddingEnd="20dp"
+                    android:textSize="16sp"
+                    android:layout_alignParentBottom="true"
+
+                    />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/vector"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"/>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Rewards"
+                android:textColor="@color/black"
+                android:textSize="38sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/inter_semibold"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/scratchCardRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginLeft="25dp"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

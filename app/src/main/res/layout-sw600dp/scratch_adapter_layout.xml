@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <RelativeLayout
+        android:layout_width="450dp"
+        android:layout_height="400dp">
+
+        <ImageView
+            android:id="@+id/cardViewImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/scratched_card"/>
+
+        <LinearLayout
+            android:id="@+id/wonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingStart="20dp"
+            android:background="@drawable/scratch_card_background_design"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/rupee_icon"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/winAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/inter" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
+                android:text="Cashback"
+                android:textColor="@color/black"
+                android:textSize="34sp" />
+
+            <RelativeLayout
+                android:layout_width="160dp"
+                android:layout_height="140dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="-30dp"
+                android:layout_marginTop="130dp"
+                >
+
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="140dp"
+                    android:src="@drawable/box" />
+
+                <ImageView
+                    android:id="@+id/star"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/star"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

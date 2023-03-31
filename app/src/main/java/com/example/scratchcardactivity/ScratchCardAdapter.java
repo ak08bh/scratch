@@ -1,12 +1,10 @@
 package com.example.scratchcardactivity;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +25,7 @@ public class ScratchCardAdapter extends RecyclerView.Adapter<ScratchCardAdapter.
     @NonNull
     @Override
     public ScratchCardAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.search_adapter_layout2,null));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.scratch_adapter_layout,null));
     }
 
     @Override
@@ -36,13 +34,13 @@ public class ScratchCardAdapter extends RecyclerView.Adapter<ScratchCardAdapter.
         ScratchCardItemList list=scratchCardItemListArrayList.get(position);
         if(list.getScratchedStatus())
         {
-            holder.cardViewImage.setImageResource(R.drawable.scratch_card);
+            holder.cardViewImage.setImageResource(R.drawable.scratched_card);
             holder.wonLayout.setVisibility(View.VISIBLE);
             holder.winAmount.setText(list.getAmount());
         }
         else
         {
-            holder.cardViewImage.setImageResource(R.drawable.scratch);
+            holder.cardViewImage.setImageResource(R.drawable.scratch_card);
             holder.wonLayout.setVisibility(View.GONE);
         }
     }

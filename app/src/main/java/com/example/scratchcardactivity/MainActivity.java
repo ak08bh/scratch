@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
      RecyclerView scratchCardRecyclerView;
      RecyclerView.Adapter adapter;
-     RelativeLayout click;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         scratchCardRecyclerView= findViewById(R.id.scratchCardRecyclerView);
-        click= findViewById(R.id.click);
 
         scratchCardRecyclerView.setHasFixedSize(true);
 
@@ -47,12 +45,6 @@ public class MainActivity extends AppCompatActivity {
         scratchCardRecyclerView.setAdapter(adapter);
 
 
-        click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),UpcomingRewardActivity.class));
-            }
-        });
 
     }
 }
