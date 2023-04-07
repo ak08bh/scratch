@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,30 +18,15 @@
             android:layout_height="wrap_content">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="380dp"
-                android:background="@drawable/background_scratch">
-
-                <ImageView
-                    android:layout_width="280dp"
-                    android:layout_height="300dp"
-                    android:src="@drawable/food_pizza"
-                    android:layout_marginStart="-30dp"
-                    android:layout_marginTop="-40dp"
-                    />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/back_btn"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="60dp"
-                    android:layout_marginStart="40dp"/>
+                android:layout_height="320dp"
+                android:background="@drawable/foodbanner">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="30dp">
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="5dp">
 
 
                     <TextView
@@ -49,12 +34,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Cashback Won"
+                        android:text="@string/cashback"
                         android:fontFamily="@font/inter_semibold"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
                         android:textSize="36sp"
-                        android:layout_marginTop="110dp"/>
+                        android:textStyle="bold"
+                        android:layout_marginTop="50dp"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -64,17 +50,18 @@
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
                             android:src="@drawable/rupee_icon"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="569"
+                            android:text="0"
                             android:textColor="@color/black"
-                            android:textSize="60sp"
-                            android:layout_marginLeft="8dp"
+                            android:textSize="56sp"
+                            android:layout_marginLeft="5dp"
+                            android:textStyle="bold"
                             android:fontFamily="@font/inter_semibold"/>
 
 
@@ -82,13 +69,14 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="180dp"
-                        android:layout_height="50dp"
-                        android:text="Redeem Now"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/reedem"
                         android:textAllCaps="false"
                         android:background="@drawable/redeem_btn_bg"
                         android:textColor="@color/white"
                         android:layout_gravity="center"
-                        android:textSize="22sp"
+                        android:textSize="20sp"
                         android:fontFamily="@font/inter_semibold"
                         android:textAlignment="center"/>
 
@@ -98,55 +86,53 @@
             </RelativeLayout>
 
 
-            <ImageView
-                android:layout_width="460dp"
-                android:layout_height="350dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="-135dp"
-                android:layout_marginTop="130dp"
-                android:src="@drawable/food_img"/>
+
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/click"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/black_bg_btn">
-
+            android:background="@drawable/black_bg_btn"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="How to earn more rewards"
+                android:text="@string/earn_reward"
                 android:textColor="@color/white"
+                android:textAllCaps="false"
                 android:fontFamily="@font/inter_semibold"
-                android:paddingStart="35dp"
+                android:textAlignment="textStart"
+                android:paddingStart="15dp"
                 android:textSize="22sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
                 />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/vector"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"/>
+                android:layout_marginEnd="20dp"
+                />
 
         </RelativeLayout>
+
+
+
         <RelativeLayout
+            android:id="@+id/inviteScreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/black_bg_btn">
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/gary_bg_btn">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -158,11 +144,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Invite your friends"
-                    android:textColor="@color/white"
+                    android:text="@string/invite_friend"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/inter_semibold"
                     android:textAlignment="textStart"
-                    android:paddingStart="35dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="20dp"
                     android:textSize="22sp"
                     android:layout_alignParentBottom="true"
 
@@ -170,11 +157,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="to earn more scratch card"
+                    android:text="@string/earn_scratch"
                     android:textColor="#818181"
                     android:fontFamily="@font/inter_semibold"
                     android:textAlignment="textStart"
-                    android:paddingStart="35dp"
+                    android:paddingStart="15dp"
                     android:paddingEnd="20dp"
                     android:textSize="16sp"
                     android:layout_alignParentBottom="true"
@@ -184,12 +171,12 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/vector"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/smile"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"/>
+                android:layout_marginRight="20dp"/>
 
         </RelativeLayout>
         <LinearLayout
@@ -201,13 +188,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Rewards"
+                android:text="@string/rewards"
                 android:textColor="@color/black"
-                android:textSize="38sp"
+                android:textSize="32sp"
                 android:layout_marginTop="20dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginEnd="20dp"
-                android:fontFamily="@font/inter_semibold"
+                android:fontFamily="@font/inter"
                 />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -220,7 +207,8 @@
                 />
 
 
+
         </LinearLayout>
 
     </LinearLayout>
-</ScrollView>
+    </androidx.core.widget.NestedScrollView>

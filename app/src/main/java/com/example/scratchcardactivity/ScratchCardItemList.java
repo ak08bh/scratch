@@ -18,4 +18,5 @@ Boolean scratchedStatus;
     public String getAmount() {
         return amount;
     }
+
 }

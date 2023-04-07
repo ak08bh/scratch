@@ -8,8 +8,8 @@
     tools:context=".ScratchCardActivity">
 
     <RelativeLayout
-        android:layout_width="250dp"
-        android:layout_height="250dp">
+        android:layout_width="350dp"
+        android:layout_height="350dp">
 
         <ImageView
             android:id="@+id/cardViewImage"
@@ -24,8 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingStart="10dp"
+            android:paddingTop="20dp"
+            android:paddingStart="20dp"
             android:background="@drawable/scratch_card_background_design"
             >
             <LinearLayout
@@ -35,8 +35,8 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/rupee_icon"
                     android:layout_gravity="center_vertical"/>
 
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:text="5"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="32sp"
                     android:fontFamily="@font/inter" />
 
             </LinearLayout>
@@ -57,28 +57,27 @@
                 android:fontFamily="@font/inter"
                 android:text="Cashback"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="32sp" />
 
             <RelativeLayout
-                android:layout_width="120dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
                 android:layout_gravity="bottom|end"
                 android:layout_marginEnd="-30dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="80dp"
                 >
 
                 <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="100dp"
+                    android:layout_width="150dp"
+                    android:layout_height="130dp"
                     android:src="@drawable/box" />
 
                 <ImageView
                     android:id="@+id/star"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_centerInParent="true"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:src="@drawable/star"
-                    app:tint="@color/black"/>
+                    android:layout_centerInParent="true"/>
 
             </RelativeLayout>
 
@@ -88,12 +87,12 @@
 
     <com.anupkumarpanwar.scratchview.ScratchView
         android:id="@+id/scratch_view"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         app:overlay_image="@drawable/scratch_card"
         app:tile_mode="CLAMP"
-        app:overlay_width="250dp"
-        app:overlay_height="250dp"
+        app:overlay_width="350dp"
+        app:overlay_height="350dp"
         android:visibility="visible">
 
 

@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">ScratchCardActivity</string>
+    <string name="cashback">Cashback Won</string>
+    <string name="earn_reward">How to earn more rewards</string>
+    <string name="reedem">Redeem Now</string>
+    <string name="invite_friend">Invite your friends</string>
+    <string name="earn_scratch">to earn more scratch card</string>
+    <string name="rewards">My Rewards</string>
+    <string name="invite">Invitation Code</string>
+    <string name="code">1ADFGYU45GD5</string>
+    <string name="upcoming">Upcoming  rewards</string>
+    <string name="earn_para">Here are the following ways to earn more rewards:</string>
+    <string name="first_tym_app_install">First time installing of App</string>
+    <string name="refer">Refer to your friends</string>
+    <string name="place_order">Place your first order</string>
+    <string name="sell_home_dish">Sell your first Home Made dish</string>
+    <string name="more_rewards">More rewards coming soon!</string>
+    <string name="invite_frnds">INVITE FRIENDS</string>
 </resources>
