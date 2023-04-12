@@ -1,11 +1,12 @@
 package com.example.scratchcardactivity;
 
-import static java.lang.String.valueOf;
+import static com.example.scratchcardactivity.ScratchCardAdapter.total;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,26 +16,24 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView scratchCardRecyclerView;
-    ArrayList<ScratchCardItemList> scratchCardItemListArrayList = new ArrayList<>();
     RelativeLayout click, inviteScreen;
     Button button;
-    TextView coins;
+    TextView totalAmount;
     APIInterface apiInterface;
-
+    ScratchCardModel scratchCardModel;
     private ScratchCardAdapter scratchCardAdapter;
 
     @Override
@@ -46,54 +45,54 @@ public class MainActivity extends AppCompatActivity {
         scratchCardRecyclerView = findViewById(R.id.scratchCardRecyclerView);
         click = findViewById(R.id.click);
         inviteScreen = findViewById(R.id.inviteScreen);
-        coins = findViewById(R.id.coins);
+        totalAmount = findViewById(R.id.totalAmount);
         button = findViewById(R.id.button);
+
+
+        scratchCardMethod();
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Call<JsonObject> call;
-                    apiInterface = APIClient.getClient().create(APIInterface.class);
+                    JsonObject jsonObject= new JsonObject();
 
-                    call = apiInterface.getScratchCards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6Ijc0MTI1ODk2MzUiLCJlbWFpbElkIjpudWxsLCJpZCI6MTE5fSwianRpIjoiMTE5IiwiaWF0IjoxNjgwODUzNjMxfQ.jQKw4bWz_zFKv2J__qwY4h8MNC_SPmqr7tkqmwWZj1i_-d7VfqJ3RZvoQb1jtzbfzPGDU3mIefrbMxuv1AfwHA", "FIRST_TIME_INSTALLATION");
+                    try
+                    {
+                        JsonObject subJsonObject= new JsonObject();
+                        subJsonObject.addProperty("scratchCardAmount",total);
+                        jsonObject.addProperty("scratchCardAmount", String.valueOf(subJsonObject));
+                    }
+
+                    catch (Exception e)
+                    {
+                         e.printStackTrace();
+                    }
+
+                JsonParser jsonParser = new JsonParser();
+                JsonObject gsonObject = (JsonObject) jsonParser.parse(jsonObject.toString());
+                    Call<JsonObject> call= apiInterface.addRewards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6Ijc0MTI1ODk2MzUiLCJlbWFpbElkIjpudWxsLCJpZCI6MTE5fSwianRpIjoiMTE5IiwiaWF0IjoxNjgwODUzNjMxfQ.jQKw4bWz_zFKv2J__qwY4h8MNC_SPmqr7tkqmwWZj1i_-d7VfqJ3RZvoQb1jtzbfzPGDU3mIefrbMxuv1AfwHA",jsonObject);
+
                     call.enqueue(new Callback<JsonObject>() {
                         @Override
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response)
                         {
-                            JsonObject s = response.body();
-                            System.out.print(s);
-                            Toast.makeText(getApplicationContext(), "Error Creating Comment: " + s, Toast.LENGTH_SHORT).show();
+                            Log.d("json_data_obj:",String.valueOf(gsonObject));
+                            Log.e("Response ",response.body()+"");
                         }
 
                         @Override
                         public void onFailure(Call<JsonObject> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Error Creating Comment: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e("akshita ", t.getMessage() + "");
+
                         }
                     });
-                } catch (Exception e) {
+
 
                 }
-            }
+
         });
-
-        scratchCardRecyclerView.setHasFixedSize(true);
-
-        scratchCardRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
-
-        scratchCardItemListArrayList.add(new ScratchCardItemList("15", false));
-        scratchCardItemListArrayList.add(new ScratchCardItemList("25", true));
-        scratchCardItemListArrayList.add(new ScratchCardItemList("10", true));
-        scratchCardItemListArrayList.add(new ScratchCardItemList("20", false));
-        scratchCardItemListArrayList.add(new ScratchCardItemList("30", false));
-        scratchCardItemListArrayList.add(new ScratchCardItemList("15", false));
-        scratchCardItemListArrayList.add(new ScratchCardItemList("20", false));
-        scratchCardItemListArrayList.add(new ScratchCardItemList("15", false));
-        scratchCardItemListArrayList.add(new ScratchCardItemList("20", false));
-        scratchCardItemListArrayList.add(new ScratchCardItemList("5", false));
-
-        scratchCardAdapter = new ScratchCardAdapter(scratchCardItemListArrayList, MainActivity.this);
-        scratchCardRecyclerView.setAdapter(scratchCardAdapter);
 
         click.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
         inviteScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,5 +110,62 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    private  void  scratchCardMethod() {
+        Call<JsonObject> call;
+        apiInterface = APIClient.getClient().create(APIInterface.class);
+
+        call = apiInterface.getScratchCards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6Ijc0MTI1ODk2MzUiLCJlbWFpbElkIjpudWxsLCJpZCI6MTE5fSwianRpIjoiMTE5IiwiaWF0IjoxNjgwODUzNjMxfQ.jQKw4bWz_zFKv2J__qwY4h8MNC_SPmqr7tkqmwWZj1i_-d7VfqJ3RZvoQb1jtzbfzPGDU3mIefrbMxuv1AfwHA", "FIRST_TIME_INSTALLATION");
+
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                try {
+
+                    JSONObject api = new JSONObject(String.valueOf(response.body()));
+                    JSONObject json = api.getJSONObject("data");
+
+                    ArrayList<ScratchCardModel> reviewlist = new ArrayList();
+                    JSONArray scratchCardReview = json.getJSONArray("scratchCardAmount");
+
+                    for (int i = 0; i < scratchCardReview.length(); i++)
+                    {
+                        ScratchCardModel scratchCardModel= new ScratchCardModel();
+
+                        JSONObject jsonObject = scratchCardReview.getJSONObject(i);
+                        scratchCardModel.setScratchCard(jsonObject.getBoolean("scratchCard"));
+                        scratchCardModel.setScratchCardAmount(jsonObject.getInt("scratchCardAmount"));
+                        scratchCardModel.setId(jsonObject.getInt("id"));
+                        scratchCardModel.setRewardId(jsonObject.getInt("rewardId"));
+
+                        reviewlist.add(scratchCardModel);
+                    }
+
+                    if(reviewlist.size()>0) {
+                        scratchCardRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+                        scratchCardAdapter = new ScratchCardAdapter(MainActivity.this, reviewlist);
+                        scratchCardRecyclerView.setAdapter(scratchCardAdapter);
+                    }
+
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error Creating Comment: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
+
 
 }

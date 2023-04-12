@@ -56,7 +56,7 @@
                             android:src="@drawable/rupee_icon" />
 
                         <TextView
-                            android:id="@+id/coins"
+                            android:id="@+id/totalAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
