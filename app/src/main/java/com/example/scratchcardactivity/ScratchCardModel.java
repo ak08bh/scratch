@@ -6,8 +6,6 @@ public class ScratchCardModel
     String createDate,remark,updateDate;
     Boolean scratchCard;
 
-
-
     public int getAmount() {
         return amount;
     }

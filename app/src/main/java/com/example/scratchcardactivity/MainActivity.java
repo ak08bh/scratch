@@ -1,21 +1,25 @@
 package com.example.scratchcardactivity;
 
-import static com.example.scratchcardactivity.ScratchCardAdapter.total;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     TextView totalAmount;
     APIInterface apiInterface;
     ScratchCardModel scratchCardModel;
+    Context context;
     private ScratchCardAdapter scratchCardAdapter;
 
     @Override
@@ -56,42 +61,57 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    JsonObject jsonObject= new JsonObject();
+                JsonObject jsonObject = new JsonObject();
 
                     try
                     {
-                        JsonObject subJsonObject= new JsonObject();
-                        subJsonObject.addProperty("scratchCardAmount",total);
-                        jsonObject.addProperty("scratchCardAmount", String.valueOf(subJsonObject));
+                        JsonArray scratchCardAmount = new JsonArray();
+                        jsonObject.addProperty("id", "10");
+                        jsonObject.addProperty("rewardId","4");
+                        jsonObject.addProperty("scratchCard", false);
+                        jsonObject.addProperty("scratchCardAmount", 8);
+                        scratchCardAmount.add(jsonObject);
+
+                        JsonObject req = new JsonObject();
+                        req.addProperty("remark", "FIRST_TIME_INSTALLATION");
+                        req.addProperty("scratchCardAmount", new Gson().toJson(scratchCardAmount));
                     }
 
                     catch (Exception e)
                     {
-                         e.printStackTrace();
+                        e.printStackTrace();
                     }
 
-                JsonParser jsonParser = new JsonParser();
-                JsonObject gsonObject = (JsonObject) jsonParser.parse(jsonObject.toString());
+                    JsonParser jsonParser = new JsonParser();
+                    JsonObject gsonObject = (JsonObject) jsonParser.parse(jsonObject.toString());
                     Call<JsonObject> call= apiInterface.addRewards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6Ijc0MTI1ODk2MzUiLCJlbWFpbElkIjpudWxsLCJpZCI6MTE5fSwianRpIjoiMTE5IiwiaWF0IjoxNjgwODUzNjMxfQ.jQKw4bWz_zFKv2J__qwY4h8MNC_SPmqr7tkqmwWZj1i_-d7VfqJ3RZvoQb1jtzbfzPGDU3mIefrbMxuv1AfwHA",jsonObject);
 
                     call.enqueue(new Callback<JsonObject>() {
                         @Override
-                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response)
-                        {
-                            Log.d("json_data_obj:",String.valueOf(gsonObject));
-                            Log.e("Response ",response.body()+"");
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                            try {
+
+                                JsonObject jsonObject1=response.body();
+                                Log.d("json_data_obj:", String.valueOf(gsonObject));
+                                Log.e("Response ", jsonObject1 + "");
+                            } catch (Exception e) {
+                                e.getMessage();
+                            }
+
                         }
 
                         @Override
                         public void onFailure(Call<JsonObject> call, Throwable t) {
-                            Log.e("akshita ", t.getMessage() + "");
+                            Log.e("message ", t.getMessage() + "");
 
                         }
                     });
 
 
-                }
 
+
+            }
         });
 
         click.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
         call = apiInterface.getScratchCards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6Ijc0MTI1ODk2MzUiLCJlbWFpbElkIjpudWxsLCJpZCI6MTE5fSwianRpIjoiMTE5IiwiaWF0IjoxNjgwODUzNjMxfQ.jQKw4bWz_zFKv2J__qwY4h8MNC_SPmqr7tkqmwWZj1i_-d7VfqJ3RZvoQb1jtzbfzPGDU3mIefrbMxuv1AfwHA", "FIRST_TIME_INSTALLATION");
-
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
