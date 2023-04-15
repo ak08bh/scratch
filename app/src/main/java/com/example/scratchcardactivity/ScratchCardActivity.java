@@ -2,19 +2,10 @@ package com.example.scratchcardactivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anupkumarpanwar.scratchview.ScratchView;
-import com.google.gson.JsonObject;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ScratchCardActivity extends AppCompatActivity implements  ScratchCardInterface
 {
@@ -26,14 +17,8 @@ ScratchView scratchView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scratch_card);
-        scratchView =findViewById(R.id.scratch_view);
+        scratchView = findViewById(R.id.scratch_view);
 
-    }
-
-
-    @Override
-    public void scratchMethod()
-    {
         scratchView.setRevealListener(new ScratchView.IRevealListener() {
             @Override
             public void onRevealed(ScratchView scratchView)
@@ -52,6 +37,16 @@ ScratchView scratchView;
 
             }
         });
+
+    }
+
+    @Override
+    public void scratchMethod() {
+
+    }
+
+    @Override
+    public void scratchMethod(int position) {
 
     }
 }

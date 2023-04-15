@@ -20,11 +20,13 @@ public class ScratchCardAdapter extends RecyclerView.Adapter<ScratchCardAdapter.
 
     ArrayList<ScratchCardModel> status;
     Context context;
+    ScratchCardInterface scratchCardInterface;
 
 
-    public ScratchCardAdapter(Context context, ArrayList<ScratchCardModel> status) {
+    public ScratchCardAdapter(Context context, ArrayList<ScratchCardModel> status,ScratchCardInterface scratchCardInterface) {
         this.status = status;
         this.context = context;
+        this.scratchCardInterface = scratchCardInterface;
     }
 
     @NonNull
@@ -88,12 +90,8 @@ public class ScratchCardAdapter extends RecyclerView.Adapter<ScratchCardAdapter.
                 cardViewImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        scratchCardInterface.scratchMethod(position);
                         TextView winCoins;
-                        final Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.activity_scratch_card);
-                        winCoins = dialog.findViewById(R.id.winCoins);
-                        dialog.show();
-                        winCoins.setText(String.valueOf(scratchCardModel.getScratchCardAmount()));
                     }
                 });
 

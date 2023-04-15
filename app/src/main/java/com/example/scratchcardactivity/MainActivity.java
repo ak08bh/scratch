@@ -61,52 +61,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JsonObject jsonObject = new JsonObject();
 
-                    try
-                    {
-                        JsonArray scratchCardAmount = new JsonArray();
-                        jsonObject.addProperty("id", "10");
-                        jsonObject.addProperty("rewardId","4");
-                        jsonObject.addProperty("scratchCard", false);
-                        jsonObject.addProperty("scratchCardAmount", 8);
-                        scratchCardAmount.add(jsonObject);
 
-                        JsonObject req = new JsonObject();
-                        req.addProperty("remark", "FIRST_TIME_INSTALLATION");
-                        req.addProperty("scratchCardAmount", new Gson().toJson(scratchCardAmount));
-                    }
-
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-
-                    JsonParser jsonParser = new JsonParser();
-                    JsonObject gsonObject = (JsonObject) jsonParser.parse(jsonObject.toString());
-                    Call<JsonObject> call= apiInterface.addRewards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6Ijc0MTI1ODk2MzUiLCJlbWFpbElkIjpudWxsLCJpZCI6MTE5fSwianRpIjoiMTE5IiwiaWF0IjoxNjgwODUzNjMxfQ.jQKw4bWz_zFKv2J__qwY4h8MNC_SPmqr7tkqmwWZj1i_-d7VfqJ3RZvoQb1jtzbfzPGDU3mIefrbMxuv1AfwHA",jsonObject);
-
-                    call.enqueue(new Callback<JsonObject>() {
-                        @Override
-                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-
-                            try {
-
-                                JsonObject jsonObject1=response.body();
-                                Log.d("json_data_obj:", String.valueOf(gsonObject));
-                                Log.e("Response ", jsonObject1 + "");
-                            } catch (Exception e) {
-                                e.getMessage();
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<JsonObject> call, Throwable t) {
-                            Log.e("message ", t.getMessage() + "");
-
-                        }
-                    });
 
 
 
@@ -163,9 +119,15 @@ public class MainActivity extends AppCompatActivity {
                         reviewlist.add(scratchCardModel);
                     }
 
+
                     if(reviewlist.size()>0) {
                         scratchCardRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
-                        scratchCardAdapter = new ScratchCardAdapter(MainActivity.this, reviewlist);
+                        scratchCardAdapter = new ScratchCardAdapter(MainActivity.this, reviewlist, new ScratchCardInterface() {
+                            @Override
+                            public void scratchMethod(int position) {
+                                showDialogScratch(reviewlist.get(position).id,reviewlist.get(position).scratchCard,reviewlist.get(position).scratchCardAmount,reviewlist.get(position).rewardId);
+                            }
+                        });
                         scratchCardRecyclerView.setAdapter(scratchCardAdapter);
                     }
 
@@ -182,6 +144,66 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showDialogScratch(int id,Boolean scratchCard,int scrathAmount,int rewardId) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.activity_scratch_card);
+        TextView winCoins = dialog.findViewById(R.id.winCoins);
+        dialog.show();
+
+        cardViewApi(id,scratchCard,scrathAmount,rewardId);
+
+        winCoins.setText(String.valueOf(scratchCardModel.getScratchCardAmount()));
+    }
+
+    private void cardViewApi(int id,Boolean scratchCard,int scrathAmount,int rewardId){
+        JsonObject jsonObject = new JsonObject();
+
+        try
+        {
+            JsonArray scratchCardAmount = new JsonArray();
+            jsonObject.addProperty("id", id);
+            jsonObject.addProperty("rewardId",rewardId);
+            jsonObject.addProperty("scratchCard", scratchCard);
+            jsonObject.addProperty("scratchCardAmount", scrathAmount);
+            scratchCardAmount.add(jsonObject);
+
+            JsonObject req = new JsonObject();
+            req.addProperty("remark", "FIRST_TIME_INSTALLATION");
+            req.addProperty("scratchCardAmount", new Gson().toJson(scratchCardAmount));
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject gsonObject = (JsonObject) jsonParser.parse(jsonObject.toString());
+        Call<JsonObject> call= apiInterface.addRewards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6Ijc0MTI1ODk2MzUiLCJlbWFpbElkIjpudWxsLCJpZCI6MTE5fSwianRpIjoiMTE5IiwiaWF0IjoxNjgwODUzNjMxfQ.jQKw4bWz_zFKv2J__qwY4h8MNC_SPmqr7tkqmwWZj1i_-d7VfqJ3RZvoQb1jtzbfzPGDU3mIefrbMxuv1AfwHA",jsonObject);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                try {
+
+                    JsonObject jsonObject1=response.body();
+                    Log.d("json_data_obj:", String.valueOf(gsonObject));
+                    Log.e("Response ", jsonObject1 + "");
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("message ", t.getMessage() + "");
+
+            }
+        });
     }
 
 
