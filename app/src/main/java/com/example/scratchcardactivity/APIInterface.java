@@ -24,5 +24,9 @@ public interface APIInterface
             @Header("accessToken") String accessToken,
             @Body JsonObject rewardDtos );
 
+    @Headers("Content-Type: application/json")
+    @GET("users/getRewards")
+    Call<JsonObject> getRewards(
+            @Header("accessToken") String accessToken);
 
 }

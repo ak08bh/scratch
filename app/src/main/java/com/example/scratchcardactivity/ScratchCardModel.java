@@ -1,8 +1,10 @@
 package com.example.scratchcardactivity;
 
+import java.util.List;
+
 public class ScratchCardModel
 {
-    int amount,id,rewardId,scratchCardAmount,totalScratchCards,unScratchCard,userId,withdrawalAmount;
+    int amount,totalScratchCards,unScratchCard,userId,withdrawalAmount,id,rewardId,scratchCardAmount;
     String createDate,remark,updateDate;
     Boolean scratchCard;
 
@@ -12,30 +14,6 @@ public class ScratchCardModel
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getRewardId() {
-        return rewardId;
-    }
-
-    public void setRewardId(int rewardId) {
-        this.rewardId = rewardId;
-    }
-
-    public int getScratchCardAmount() {
-        return scratchCardAmount;
-    }
-
-    public void setScratchCardAmount(int scratchCardAmount) {
-        this.scratchCardAmount = scratchCardAmount;
     }
 
     public int getTotalScratchCards() {
@@ -68,6 +46,30 @@ public class ScratchCardModel
 
     public void setWithdrawalAmount(int withdrawalAmount) {
         this.withdrawalAmount = withdrawalAmount;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getRewardId() {
+        return rewardId;
+    }
+
+    public void setRewardId(int rewardId) {
+        this.rewardId = rewardId;
+    }
+
+    public int getScratchCardAmount() {
+        return scratchCardAmount;
+    }
+
+    public void setScratchCardAmount(int scratchCardAmount) {
+        this.scratchCardAmount = scratchCardAmount;
     }
 
     public String getCreateDate() {

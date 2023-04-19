@@ -2,8 +2,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:gravity="center"
     tools:context=".ScratchCardActivity">
 
@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/cardViewImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:scaleType="fitXY"
             android:src="@drawable/scratched_card"/>
 
@@ -24,6 +24,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@drawable/scratch_card_background_design"
+            android:paddingTop="10dp"
+            android:paddingStart="10dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,8 +62,8 @@
                 android:layout_width="120dp"
                 android:layout_height="100dp"
                 android:layout_gravity="bottom|end"
-                android:layout_marginEnd="-30dp"
                 android:layout_marginTop="50dp"
+                android:layout_marginEnd="-30dp"
                 >
 
                 <ImageView
@@ -90,7 +92,6 @@
         app:overlay_image="@drawable/scratch_card"
         app:tile_mode="CLAMP"
         android:visibility="visible">
-
 
     </com.anupkumarpanwar.scratchview.ScratchView>
 

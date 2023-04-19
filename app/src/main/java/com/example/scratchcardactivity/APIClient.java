@@ -14,7 +14,7 @@ public class APIClient
     //private  static String BaseUrl="http://cooldbprod-env.eba-bznxkqwk.ap-northeast-1.elasticbeanstalk.com/chef/v1/";
 
     //Testing
-    private  static String BaseUrl="http://cooldbstaging-env.eba-7xfzavz8.ap-northeast-1.elasticbeanstalk.com/chef/v1/";
+    private  static final String BaseUrl="http://cooldbstaging-env.eba-7xfzavz8.ap-northeast-1.elasticbeanstalk.com/chef/v1/";
 
     public static Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
