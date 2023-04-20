@@ -13,9 +13,8 @@
 
         <ImageView
             android:id="@+id/cardViewImage"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:src="@drawable/scratched_card"/>
 
         <LinearLayout
@@ -25,8 +24,8 @@
             android:orientation="vertical"
             android:background="@drawable/scratch_card_background_design"
             android:paddingTop="10dp"
-            android:paddingStart="10dp"
-            >
+            android:paddingStart="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,8 +62,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="bottom|end"
                 android:layout_marginTop="50dp"
-                android:layout_marginEnd="-30dp"
-                >
+                android:layout_marginEnd="-30dp">
 
                 <ImageView
                     android:layout_width="120dp"
@@ -89,10 +87,12 @@
         android:id="@+id/scratch_view"
         android:layout_width="250dp"
         android:layout_height="250dp"
+        android:visibility="visible"
         app:overlay_image="@drawable/scratch_card"
-        app:tile_mode="CLAMP"
-        android:visibility="visible">
-
+        app:overlay_width="250dp"
+        app:overlay_height="250dp"
+        app:tile_mode="CLAMP">
     </com.anupkumarpanwar.scratchview.ScratchView>
+
 
 </RelativeLayout>

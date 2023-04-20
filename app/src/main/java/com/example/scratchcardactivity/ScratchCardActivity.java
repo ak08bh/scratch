@@ -16,6 +16,10 @@ ScratchView scratchView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scratch_card);
         scratchView = findViewById(R.id.scratch_view);
+
+
     }
+
+
 
 }

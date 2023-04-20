@@ -74,21 +74,25 @@ public class ScratchCardAdapter extends RecyclerView.Adapter<ScratchCardAdapter.
         public void renderCell(int position,ScratchCardAdapter.ViewHolder holder)
         {
 
-            if (status.get(position).getScratchCard()) {
+            if (status.get(position).getScratchCard())
+            {
+                cardViewImage.setImageResource(R.drawable.scratched_card);
                 wonLayout.setVisibility(View.VISIBLE);
                 winAmount.setText(String.valueOf(scratchCardModel.getScratchCardAmount()));
             }
+
             else
             {
                 cardViewImage.setImageResource(R.drawable.scratch_card);
                 wonLayout.setVisibility(View.GONE);
                 String num = String.valueOf(scratchCardModel.getScratchCardAmount());
+                winAmount.setText(String.valueOf(scratchCardModel.getScratchCardAmount()));
 
-                int id= scratchCardModel.getId();
+                int id=scratchCardModel.getId();
                 int rewardId=scratchCardModel.getRewardId();
                 Boolean scratchCard=scratchCardModel.getScratchCard();
 
-                cardViewImage.setOnClickListener(v -> mMainActivity.showDailogBox(holder,context, num,position,id,rewardId,scratchCard));
+                cardViewImage.setOnClickListener(v -> mMainActivity.showDailogBox(cardViewImage,wonLayout,holder,context, num,position,id,rewardId,scratchCard));
             }
         }
     }

@@ -37,19 +37,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
     RecyclerView scratchCardRecyclerView;
     RelativeLayout click, inviteScreen;
     Button button;
     TextView totalAmount;
     APIInterface apiInterface;
-    ScratchCardModel scratchCardModel;
-    Context context;
     private ScratchCardAdapter scratchCardAdapter;
     String remark="FIRST_TIME_INSTALLATION";
-    int  statusCode;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
@@ -60,12 +61,7 @@ public class MainActivity extends AppCompatActivity {
         totalAmount = findViewById(R.id.totalAmount);
         button = findViewById(R.id.button);
 
-
-
         scratchCardMethod();
-
-
-
 
         click.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         Call<JsonObject> call;
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
-        call = apiInterface.getScratchCards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6IjcwMDA3OTIyNjQiLCJlbWFpbElkIjpudWxsLCJpZCI6MTMxfSwianRpIjoiMTMxIiwiaWF0IjoxNjgxODkxMjA1fQ.3KfwBQJe9Ue4o8mlv0AXE7oZnNfsg-bG7ga0MNXljcKE9aGDpyTlG79RH89zgPnPKl2bLh_oGurSF_-QcNCHdA", "FIRST_TIME_INSTALLATION");
+        call = apiInterface.getScratchCards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6IjcwMDA3OTIyNjQiLCJlbWFpbElkIjpudWxsLCJpZCI6MTMyfSwianRpIjoiMTMyIiwiaWF0IjoxNjgxOTgzNDMwfQ.mvlUTzb3v2tuyEeqmvH0Md42eY20Hq2BXdGfy26Y0tpuQ_HE1LnCPdUwbpJpH_7DOnuaG92YDVDNKKOPaCPsBw", "FIRST_TIME_INSTALLATION");
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -123,8 +119,6 @@ public class MainActivity extends AppCompatActivity {
                         scratchCardAdapter = new ScratchCardAdapter(MainActivity.this, reviewlist,MainActivity.this);
                         scratchCardRecyclerView.setAdapter(scratchCardAdapter);
                     }
-
-
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
@@ -137,11 +131,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Error Creating Comment: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
-
-    public  void showDailogBox(ScratchCardAdapter.ViewHolder holder,Context context,String num,int pos,int id,int rewardId,Boolean scratchCard)
+    public  void showDailogBox(ImageView cardViewImage,LinearLayout wonLayout,ScratchCardAdapter.ViewHolder holder,Context context,String num,int pos,int id,int rewardId,Boolean scratchCard)
     {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.activity_scratch_card);
@@ -158,24 +150,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRevealPercentChangedListener(ScratchView scratchView, float percent)
             {
-               if(percent>=0.1)
+               if(percent>=-0.0)
                {
                    winCoins.setText(num);
+                   scratch_view.setVisibility(View.GONE);
+                   wonLayout.setVisibility(View.GONE);
+
+
                    final Timer timer2 = new Timer();
                    timer2.schedule(new TimerTask() {
                        public void run() {
                            dialog.dismiss();
-
-                           holder.winAmount.setText(num);
-
-
+                        holder.winAmount.setText(num);
                            //this will cancel the timer of the system
-
                        }
-                   }, 2000);
+                   }, 4000);
                }
             }
-
         });
 
         System.out.println("the position of the view is "+pos);
@@ -183,17 +174,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-    public void cardViewApi(String remark,Boolean scratchCard,String sa,int id,int rewardId,ScratchCardAdapter.ViewHolder holder) {
-
-
+    public void cardViewApi(String remark,Boolean scratchCard,String sa,int id,int rewardId,ScratchCardAdapter.ViewHolder holder)
+    {
             int scratchAmount = Integer.parseInt(sa);
             JSONObject userObj = new JSONObject();
             JSONArray jsonArray = new JSONArray();
             JSONObject arraydata = new JSONObject();
 
             JsonObject gsonObject = null;
+
             try {
                 userObj.put("remark", remark);
                 arraydata.put("id", id);
@@ -204,25 +193,28 @@ public class MainActivity extends AppCompatActivity {
 
                 JsonParser jsonParser = new JsonParser();
                 gsonObject = (JsonObject) jsonParser.parse(userObj.toString());
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
 
             }
 
-            Call<JsonObject> call = apiInterface.addRewards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6IjcwMDA3OTIyNjQiLCJlbWFpbElkIjpudWxsLCJpZCI6MTMxfSwianRpIjoiMTMxIiwiaWF0IjoxNjgxODkxMjA1fQ.3KfwBQJe9Ue4o8mlv0AXE7oZnNfsg-bG7ga0MNXljcKE9aGDpyTlG79RH89zgPnPKl2bLh_oGurSF_-QcNCHdA", gsonObject);
+            Call<JsonObject> call = apiInterface.addRewards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6IjcwMDA3OTIyNjQiLCJlbWFpbElkIjpudWxsLCJpZCI6MTMyfSwianRpIjoiMTMyIiwiaWF0IjoxNjgxOTgzNDMwfQ.mvlUTzb3v2tuyEeqmvH0Md42eY20Hq2BXdGfy26Y0tpuQ_HE1LnCPdUwbpJpH_7DOnuaG92YDVDNKKOPaCPsBw", gsonObject);
 
             call.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                    try {
-
+                    try
+                    {
                         JsonObject jsonObject1 = response.body();
                         Log.d("json_data_obj:", String.valueOf(jsonObject1));
                         Log.e("Response ", jsonObject1 + "");
-                    } catch (Exception e) {
-                        e.getMessage();
                     }
 
+                    catch (Exception e)
+                    {
+                        e.getMessage();
+                    }
 
                 }
 
