@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +58,7 @@ public class ScratchCardAdapter extends RecyclerView.Adapter<ScratchCardAdapter.
         TextView winAmount;
         ImageView cardViewImage;
         ScratchCardModel scratchCardModel;
+        RelativeLayout rootCardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +66,7 @@ public class ScratchCardAdapter extends RecyclerView.Adapter<ScratchCardAdapter.
             winAmount = itemView.findViewById(R.id.winAmount);
             wonLayout = itemView.findViewById(R.id.wonLayout);
             cardViewImage = itemView.findViewById(R.id.cardViewImage);
+            rootCardView = itemView.findViewById(R.id.rootCardView);
         }
 
         public void setReviewOBJ(ScratchCardModel scratchCardModel) {
@@ -85,16 +88,22 @@ public class ScratchCardAdapter extends RecyclerView.Adapter<ScratchCardAdapter.
             {
                 cardViewImage.setImageResource(R.drawable.scratch_card);
                 wonLayout.setVisibility(View.GONE);
+            }
+
                 String num = String.valueOf(scratchCardModel.getScratchCardAmount());
                 winAmount.setText(String.valueOf(scratchCardModel.getScratchCardAmount()));
 
-                int id=scratchCardModel.getId();
-                int rewardId=scratchCardModel.getRewardId();
-                Boolean scratchCard=scratchCardModel.getScratchCard();
-
-                cardViewImage.setOnClickListener(v -> mMainActivity.showDailogBox(cardViewImage,wonLayout,holder,context, num,position,id,rewardId,scratchCard));
-            }
+                int id = scratchCardModel.getId();
+                int rewardId = scratchCardModel.getRewardId();
+                Boolean scratchCard = scratchCardModel.getScratchCard();
+                rootCardView.setOnClickListener(v -> mMainActivity.showDailogBox(wonLayout, holder, context, num, position, id, rewardId, scratchCard));
         }
+    }
+
+    public  void updateData(ArrayList<ScratchCardModel> status)
+    {
+        this.status=status;
+        this.notifyDataSetChanged();
     }
 }
 

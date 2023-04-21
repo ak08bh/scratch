@@ -42,10 +42,12 @@ public class MainActivity extends AppCompatActivity
     RecyclerView scratchCardRecyclerView;
     RelativeLayout click, inviteScreen;
     Button button;
-    TextView totalAmount;
+    TextView total;
     APIInterface apiInterface;
     private ScratchCardAdapter scratchCardAdapter;
+    int n=0;
     String remark="FIRST_TIME_INSTALLATION";
+
 
 
     @Override
@@ -58,8 +60,9 @@ public class MainActivity extends AppCompatActivity
         scratchCardRecyclerView = findViewById(R.id.scratchCardRecyclerView);
         click = findViewById(R.id.click);
         inviteScreen = findViewById(R.id.inviteScreen);
-        totalAmount = findViewById(R.id.totalAmount);
+        total = findViewById(R.id.total);
         button = findViewById(R.id.button);
+
 
         scratchCardMethod();
 
@@ -80,8 +83,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-
-
     private  void  scratchCardMethod() {
         Call<JsonObject> call;
         apiInterface = APIClient.getClient().create(APIInterface.class);
@@ -96,9 +97,8 @@ public class MainActivity extends AppCompatActivity
                     JSONObject api = new JSONObject(String.valueOf(response.body()));
                     JSONObject json = api.getJSONObject("data");
 
-                    ArrayList<ScratchCardModel> reviewlist = new ArrayList();
-
                     JSONArray scratchCardReview = json.getJSONArray("scratchCardAmount");
+                    ArrayList<ScratchCardModel> reviewlist = new ArrayList();
 
                     for (int i = 0; i < scratchCardReview.length(); i++)
                     {
@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity
                         scratchCardModel.setScratchCardAmount(jsonObject.getInt("scratchCardAmount"));
                         scratchCardModel.setId(jsonObject.getInt("id"));
                         scratchCardModel.setRewardId(jsonObject.getInt("rewardId"));
-
                         reviewlist.add(scratchCardModel);
                     }
 
@@ -133,46 +132,91 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public  void showDailogBox(ImageView cardViewImage,LinearLayout wonLayout,ScratchCardAdapter.ViewHolder holder,Context context,String num,int pos,int id,int rewardId,Boolean scratchCard)
+    public  void showDailogBox(LinearLayout wonLayout,ScratchCardAdapter.ViewHolder holder,Context context,String num,int pos,int id,int rewardId,Boolean scratchCard)
     {
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.activity_scratch_card);
-        TextView winCoins = dialog.findViewById(R.id.winCoins);
-        ScratchView scratch_view=dialog.findViewById(R.id.scratch_view);
-        dialog.show();
-        scratch_view.setRevealListener(new ScratchView.IRevealListener()
+
+        if(scratchCard)
         {
-            @Override
-            public void onRevealed(ScratchView scratchView)
-            {
 
-            }
-            @Override
-            public void onRevealPercentChangedListener(ScratchView scratchView, float percent)
-            {
-               if(percent>=-0.0)
-               {
-                   winCoins.setText(num);
-                   scratch_view.setVisibility(View.GONE);
-                   wonLayout.setVisibility(View.GONE);
+        }
+        else {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.activity_scratch_card);
+            TextView winCoins = dialog.findViewById(R.id.winCoins);
+            ScratchView scratch_view = dialog.findViewById(R.id.scratch_view);
+            dialog.show();
 
+            scratch_view.setRevealListener(new ScratchView.IRevealListener() {
+                @Override
+                public void onRevealed(ScratchView scratchView) {
 
-                   final Timer timer2 = new Timer();
-                   timer2.schedule(new TimerTask() {
-                       public void run() {
-                           dialog.dismiss();
-                        holder.winAmount.setText(num);
-                           //this will cancel the timer of the system
-                       }
-                   }, 4000);
-               }
-            }
-        });
+                }
 
-        System.out.println("the position of the view is "+pos);
-        cardViewApi(remark,scratchCard,num,id,rewardId,holder);
+                @Override
+                public void onRevealPercentChangedListener(ScratchView scratchView, float percent) {
+                    if (percent >= 0.1) {
+                        winCoins.setText(num);
+                        scratch_view.setVisibility(View.GONE);
+                        wonLayout.setVisibility(View.GONE);
+
+                        cardViewApi(remark, scratchCard, num, id, rewardId, holder);
+
+                        final Timer timer2 = new Timer();
+                        timer2.schedule(new TimerTask() {
+                            public void run() {
+                                dialog.dismiss();
+                                scratchCardMethod();
+                                holder.winAmount.setText(num);
+                                //this will cancel the timer of the system
+                            }
+                        }, 500);
+                    }
+                }
+            });
+        }
     }
 
+    private void addRewardsApi()
+    {
+             try {
+             Call<JsonObject> call= apiInterface.getRewards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6IjcwMDA3OTIyNjQiLCJlbWFpbElkIjpudWxsLCJpZCI6MTMyfSwianRpIjoiMTMyIiwiaWF0IjoxNjgxOTgzNDMwfQ.mvlUTzb3v2tuyEeqmvH0Md42eY20Hq2BXdGfy26Y0tpuQ_HE1LnCPdUwbpJpH_7DOnuaG92YDVDNKKOPaCPsBw");
+
+             call.enqueue(new Callback<JsonObject>() {
+                 @Override
+                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                        try {
+                              JSONObject api= new JSONObject(String.valueOf(response.body()));
+                            String statusCode = api.getString("statusCode");
+                            JSONObject data = api.getJSONObject("data");
+
+                            if(statusCode.equals("200"))
+                            {
+                                int numberTotal= data.getInt("totalAmount");
+                                total.setText(String.valueOf(numberTotal));
+                            }
+
+
+                        }
+                        catch (JSONException e)
+                        {
+
+                        }
+                     }
+
+
+                 @Override
+                 public void onFailure(Call<JsonObject> call, Throwable t) {
+                     Log.e("message ", t.getMessage() + "");
+
+                 }
+             });
+              }
+            catch (Exception e)
+             {
+                    e.printStackTrace();
+               }
+    }
 
     public void cardViewApi(String remark,Boolean scratchCard,String sa,int id,int rewardId,ScratchCardAdapter.ViewHolder holder)
     {
@@ -209,6 +253,8 @@ public class MainActivity extends AppCompatActivity
                         JsonObject jsonObject1 = response.body();
                         Log.d("json_data_obj:", String.valueOf(jsonObject1));
                         Log.e("Response ", jsonObject1 + "");
+
+
                     }
 
                     catch (Exception e)
@@ -229,6 +275,8 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+
+
 
 
 }
