@@ -96,7 +96,7 @@ public class ScratchCardAdapter extends RecyclerView.Adapter<ScratchCardAdapter.
                 int id = scratchCardModel.getId();
                 int rewardId = scratchCardModel.getRewardId();
                 Boolean scratchCard = scratchCardModel.getScratchCard();
-                rootCardView.setOnClickListener(v -> mMainActivity.showDailogBox(wonLayout, holder, context, num, position, id, rewardId, scratchCard));
+                rootCardView.setOnClickListener(v -> mMainActivity.showDailogBox(wonLayout, holder, context, num, id, rewardId, scratchCard));
         }
     }
 

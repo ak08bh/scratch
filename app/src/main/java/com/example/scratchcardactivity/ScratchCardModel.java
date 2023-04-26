@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ScratchCardModel
 {
-    int amount,totalScratchCards,unScratchCard,userId,withdrawalAmount,id,rewardId,scratchCardAmount;
+    int amount,totalScratchCards,unScratchCard,userId,withdrawalAmount,id,rewardId,scratchCardAmount,totalAmount;
     String createDate,remark,updateDate;
     Boolean scratchCard;
 
@@ -15,6 +15,15 @@ public class ScratchCardModel
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    public int getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
 
     public int getTotalScratchCards() {
         return totalScratchCards;

@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +29,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,12 +50,11 @@ public class MainActivity extends AppCompatActivity
     RecyclerView scratchCardRecyclerView;
     RelativeLayout click, inviteScreen;
     Button button;
-    TextView total;
     APIInterface apiInterface;
     private ScratchCardAdapter scratchCardAdapter;
-    int n=0;
+    TextView total;
+    Dialog dialog;
     String remark="FIRST_TIME_INSTALLATION";
-
 
 
     @Override
@@ -60,11 +67,11 @@ public class MainActivity extends AppCompatActivity
         scratchCardRecyclerView = findViewById(R.id.scratchCardRecyclerView);
         click = findViewById(R.id.click);
         inviteScreen = findViewById(R.id.inviteScreen);
-        total = findViewById(R.id.total);
         button = findViewById(R.id.button);
-
+        total=findViewById(R.id.total);
 
         scratchCardMethod();
+        addRewardsApi();
 
         click.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +100,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 try {
-
                     JSONObject api = new JSONObject(String.valueOf(response.body()));
                     JSONObject json = api.getJSONObject("data");
 
@@ -132,15 +138,9 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public  void showDailogBox(LinearLayout wonLayout,ScratchCardAdapter.ViewHolder holder,Context context,String num,int pos,int id,int rewardId,Boolean scratchCard)
+    public  void showDailogBox(LinearLayout wonLayout,ScratchCardAdapter.ViewHolder holder,Context context,String num,int id,int rewardId,Boolean scratchCard)
     {
-
-        if(scratchCard)
-        {
-
-        }
-        else {
-            final Dialog dialog = new Dialog(context);
+            dialog = new Dialog(context);
             dialog.setContentView(R.layout.activity_scratch_card);
             TextView winCoins = dialog.findViewById(R.id.winCoins);
             ScratchView scratch_view = dialog.findViewById(R.id.scratch_view);
@@ -148,33 +148,39 @@ public class MainActivity extends AppCompatActivity
 
             scratch_view.setRevealListener(new ScratchView.IRevealListener() {
                 @Override
-                public void onRevealed(ScratchView scratchView) {
+                public void onRevealed(ScratchView scratchView)
+                {
 
                 }
 
                 @Override
                 public void onRevealPercentChangedListener(ScratchView scratchView, float percent) {
-                    if (percent >= 0.1) {
+                    if (percent >= 0.2) {
                         winCoins.setText(num);
                         scratch_view.setVisibility(View.GONE);
                         wonLayout.setVisibility(View.GONE);
+                        holder.winAmount.setText(num);
 
-                        cardViewApi(remark, scratchCard, num, id, rewardId, holder);
+                        new CountDownTimer(1000, 10) {
+                            public void onTick(long millisUntilFinished) {
 
-                        final Timer timer2 = new Timer();
-                        timer2.schedule(new TimerTask() {
-                            public void run() {
-                                dialog.dismiss();
-                                scratchCardMethod();
-                                holder.winAmount.setText(num);
-                                //this will cancel the timer of the system
                             }
-                        }, 500);
+
+                            public void onFinish() {
+                                dialog.dismiss();
+
+                            }
+                        }.start();
+
+
+                        //this will cancel the timer of the system
                     }
                 }
             });
+        cardViewApi(remark, num, id, rewardId);
+
+        scratchCardMethod();
         }
-    }
 
     private void addRewardsApi()
     {
@@ -185,8 +191,9 @@ public class MainActivity extends AppCompatActivity
                  @Override
                  public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                        try {
-                              JSONObject api= new JSONObject(String.valueOf(response.body()));
+                        try
+                        {
+                            JSONObject api= new JSONObject(String.valueOf(response.body()));
                             String statusCode = api.getString("statusCode");
                             JSONObject data = api.getJSONObject("data");
 
@@ -196,14 +203,12 @@ public class MainActivity extends AppCompatActivity
                                 total.setText(String.valueOf(numberTotal));
                             }
 
-
                         }
                         catch (JSONException e)
                         {
 
                         }
-                     }
-
+                 }
 
                  @Override
                  public void onFailure(Call<JsonObject> call, Throwable t) {
@@ -218,48 +223,45 @@ public class MainActivity extends AppCompatActivity
                }
     }
 
-    public void cardViewApi(String remark,Boolean scratchCard,String sa,int id,int rewardId,ScratchCardAdapter.ViewHolder holder)
+    public void cardViewApi(String remark,String sa,int id,int rewardId)
     {
-            int scratchAmount = Integer.parseInt(sa);
+        try {
             JSONObject userObj = new JSONObject();
             JSONArray jsonArray = new JSONArray();
             JSONObject arraydata = new JSONObject();
 
             JsonObject gsonObject = null;
 
-            try {
                 userObj.put("remark", remark);
                 arraydata.put("id", id);
                 arraydata.put("rewardId", rewardId);
-                arraydata.put("scratchCardAmount", scratchAmount);
+                arraydata.put("scratchCardAmount", sa);
                 jsonArray.put(arraydata);
                 userObj.put("scratchCardAmount", jsonArray);
 
                 JsonParser jsonParser = new JsonParser();
                 gsonObject = (JsonObject) jsonParser.parse(userObj.toString());
-            }
-            catch (Exception e) {
-
-            }
 
             Call<JsonObject> call = apiInterface.addRewards("eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7Im5hbWUiOm51bGwsIm1vYmlsZSI6IjcwMDA3OTIyNjQiLCJlbWFpbElkIjpudWxsLCJpZCI6MTMyfSwianRpIjoiMTMyIiwiaWF0IjoxNjgxOTgzNDMwfQ.mvlUTzb3v2tuyEeqmvH0Md42eY20Hq2BXdGfy26Y0tpuQ_HE1LnCPdUwbpJpH_7DOnuaG92YDVDNKKOPaCPsBw", gsonObject);
 
             call.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    if (response.body() != null) {
 
-                    try
-                    {
-                        JsonObject jsonObject1 = response.body();
-                        Log.d("json_data_obj:", String.valueOf(jsonObject1));
-                        Log.e("Response ", jsonObject1 + "");
+                        JSONObject api = null;
+                        try {
+                            api = new JSONObject(String.valueOf(response.body()));
+                            String statusCode = api.getString("statusCode");
+                            String message = api.getString("message");
 
+                            if (statusCode.equals("200")) {
+                                addRewardsApi();
 
-                    }
-
-                    catch (Exception e)
-                    {
-                        e.getMessage();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }
@@ -273,10 +275,12 @@ public class MainActivity extends AppCompatActivity
             });
 
 
-
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         }
 
+    }
 
-
-
-}
